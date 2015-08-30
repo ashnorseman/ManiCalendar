@@ -139,6 +139,7 @@ td {
     left: 0.4rem;
     right: 0.4rem;
     top: (@font-base * 2 - @gap) / 2;
+  white-space: nowrap;
 
   &.type-1 {
     background: @color-event-1-bg;
@@ -200,6 +201,13 @@ td {
       display: block;
     }
   }
+}
+
+.mani-event-clock-name {
+  display: block;
+  margin-right: 4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mani-event-clock-status {

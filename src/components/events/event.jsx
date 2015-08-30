@@ -15,13 +15,14 @@ export default class Event extends React.Component {
 
     return (
       <div className={`mani-event-clock type-${this.props.eventType}`}>
-        {this.props.eventName}
         <span className='mani-event-clock-status'>{this.props.status}</span>
 
         <div className='mani-event-clock-opr'>
           <span className='mani-event-clock-delete' onClick={this.props.onDelete}>删除</span>
           {finished ? <span onClick={this.props.onReopen}>重新打开</span> : <span onClick={this.props.onFinish}>完成</span>}
         </div>
+
+        <span className='mani-event-clock-name'>{this.props.eventName}</span>
       </div>
     );
   }
