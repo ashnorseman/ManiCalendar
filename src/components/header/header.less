@@ -1,0 +1,118 @@
+/**
+ * Created by AshZhang on 15/8/28.
+ */
+
+
+@import "../../styles/_variables";
+@import "../../styles/_mixins";
+
+
+// Variables
+// ---------------------------
+
+@btn-arrow-size:  8px;
+
+
+// Container
+// ---------------------------
+
+.mani-header {
+  height: @control-height;
+}
+
+
+// Date switch
+// ---------------------------
+
+.mani-header-date-switch {
+  border: 1px solid @color-gray-light;
+  float: left;
+  font-size: @font-lg;
+  font-weight: 500;
+  line-height: @control-height - 2;
+  padding: 0 @control-height;
+  position: relative;
+  margin: 0 @control-height / 2 + @control-height 0 @control-height / 2;
+  text-align: center;
+  white-space: nowrap;
+  width: 18em;
+
+  > .mani-header-date-btn {
+    background: @color-white;
+    border: 1px solid @color-gray-light;
+    border-radius: 50%;
+    font-size: 0;
+    padding: 0;
+    position: absolute;
+      top: -1px;
+    width: @control-height;
+    
+    &:hover {
+      background: lighten(@color-gray-lightest, 8);
+    }
+    
+    &:active {
+      background: @color-blue-lighter;
+    }
+  }
+
+  .arrow {
+    border: @btn-arrow-size solid transparent;
+    margin-top: -1px;
+    position: absolute;
+      top: (@control-height - @btn-arrow-size * 2) / 2;
+  }
+}
+
+.mani-header-date-prev {
+  left: -@control-height / 2;
+
+  > .arrow {
+    border-right-color: @color-gray-light;
+    left: 1px;
+  }
+}
+
+.mani-header-date-next {
+  right: -@control-height / 2;
+
+  > .arrow {
+    border-left-color: @color-gray-light;
+    left: 11px;
+  }
+}
+
+
+// View switch
+// ---------------------------
+
+.mani-header-view-switch {
+  float: right;
+
+  > li {
+    display: inline-block;
+    margin-left: -1px;
+
+    > a {
+      .btn();
+      .btn-normal();
+      border-radius: 0;
+      display: inline-block;
+      line-height: @control-height - 2;
+
+      &.active {
+        position: relative;
+      }
+    }
+
+    &:first-child > a {
+      border-bottom-left-radius: @border-radius;
+      border-top-left-radius: @border-radius;
+    }
+
+    &:last-child > a {
+      border-bottom-right-radius: @border-radius;
+      border-top-right-radius: @border-radius;
+    }
+  }
+}

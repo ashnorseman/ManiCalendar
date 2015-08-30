@@ -1,0 +1,295 @@
+/**
+ * Created by AshZhang on 15/8/27.
+ */
+
+
+@import "../../styles/_variables";
+@import "../../styles/_mixins";
+@import "../../styles/_typography";
+@import "../../styles/_form";
+
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app,
+.mani,
+.mani > div {
+  height: 100%;
+}
+
+
+// Calendar
+// ---------------------------
+
+.mani {
+  padding: @gap;
+}
+
+.mani > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.mani-header {
+  .clearfix();
+}
+
+.mani-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-top: @gap;
+}
+
+.mani-data-header {
+  border-left: 1px solid @color-gray-darker;
+  border-right: 1px solid @color-gray-darker;
+}
+
+.mani-data-content {
+  border: 1px solid lighten(@color-gray-lighter, 6);
+  border-top: 0;
+  flex: 1;
+  overflow: auto;
+}
+
+
+// Table
+// ---------------------------
+
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+th {
+  background: linear-gradient(lighten(@color-gray-dark, 9), @color-gray-darker);
+  color: @color-white;
+  font-size: @font-lg;
+  font-weight: 400;
+  line-height: 1.2;
+  padding: 0.3rem;
+  vertical-align: top;
+}
+
+td {
+  border: 1px solid lighten(@color-gray-lighter, 6);
+  height: @font-base * 2;
+  padding: 0 0.4rem;
+  position: relative;
+
+  &:first-child {
+    border-left: 0;
+  }
+
+  &:last-child {
+    border-right: 0;
+  }
+
+  tr:first-child > & {
+    border-top: 0;
+  }
+
+  tr:last-child > & {
+    border-bottom: 0;
+  }
+}
+
+.mani-td-mute {
+  opacity: 0.4;
+}
+
+.mani-th-time-label {
+  width: 8rem;
+}
+
+.mani-time-label {
+  background: @color-blue-lighter;
+  border-bottom: 0;
+  text-align: right;
+  width: 8rem;
+
+  & ~ td {
+    border-bottom-style: dashed;
+  }
+}
+
+.mani-clock-second-half > td {
+  border-top-style: dashed;
+}
+
+
+// Events
+// ---------------------------
+
+.mani-event-clock {
+  border: 1px solid;
+  border-radius: @border-radius;
+  font-size: @font-base;
+  height: @gap;
+  line-height: @gap - (1 / 16);
+  padding: 0 0.25em;
+  position: absolute;
+    left: 0.4rem;
+    right: 0.4rem;
+    top: (@font-base * 2 - @gap) / 2;
+
+  &.type-1 {
+    background: @color-event-1-bg;
+    border-color: @color-event-1-border;
+  }
+
+  &.type-2 {
+    background: @color-event-2-bg;
+    border-color: @color-event-2-border;
+  }
+
+  &.type-3 {
+    background: @color-event-3-bg;
+    border-color: @color-event-3-border;
+  }
+
+  &.type-4 {
+    background: @color-event-4-bg;
+    border-color: @color-event-4-border;
+  }
+
+  &.type-5 {
+    background: @color-event-5-bg;
+    border-color: @color-event-5-border;
+  }
+
+  &.type-6 {
+    background: @color-event-6-bg;
+    border-color: @color-event-6-border;
+  }
+
+  &.type-7 {
+    background: @color-event-7-bg;
+    border-color: @color-event-7-border;
+  }
+
+  &.type-8 {
+    background: @color-event-8-bg;
+    border-color: @color-event-8-border;
+  }
+
+  &.type-9 {
+    background: @color-event-9-bg;
+    border-color: @color-event-9-border;
+  }
+
+  &.type-10 {
+    background: @color-event-10-bg;
+    border-color: @color-event-10-border;
+  }
+
+  &:hover {
+
+    .mani-event-clock-status {
+      display: none;
+    }
+
+    .mani-event-clock-opr {
+      display: block;
+    }
+  }
+}
+
+.mani-event-clock-status {
+  color: @color-gray;
+  float: right;
+  font-size: @font-sm;
+}
+
+.mani-event-clock-opr {
+  display: none;
+  font-size: @font-sm;
+  float: right;
+
+  > span {
+    cursor: pointer;
+    padding: 0 0.25rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.mani-event-clock-delete {
+  color: @color-gray;
+}
+
+
+// Edit
+
+.mani-event-edit {
+  display: flex;
+  padding: 0.25rem 0;
+}
+
+.mani-event-input {
+  flex: 1;
+  margin-right: @gap;
+}
+
+.mani-event-select {
+  margin-right: @gap;
+  width: 10rem;
+}
+
+
+// Week
+// ---------------------------
+
+.mani-week-view {
+
+  .mani-event-edit {
+    display: block;
+
+    > button {
+      width: 100%;
+    }
+  }
+
+  .mani-event-input,
+  .mani-event-select {
+    margin-bottom: 0.25rem;
+    width: 100%;
+  }
+}
+
+
+// Month
+// ---------------------------
+
+.mani-month-view {
+
+  td {
+    height: 8rem;
+    vertical-align: top;
+  }
+
+  .mani-event-clock-status {
+    display: block !important;
+  }
+
+  .mani-event-clock-opr {
+    display: none !important;
+  }
+}
+
+.mani-month-events {
+
+  > .mani-event-clock {
+    margin-top: 0.25rem;
+    position: static;
+  }
+}
