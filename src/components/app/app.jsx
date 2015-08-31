@@ -10,6 +10,8 @@ import './app.less';
 import React from 'react';
 import Router, { Route, Redirect, RouteHandler } from 'react-router';
 import AltContainer from 'alt/AltContainer';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd/modules/backends/HTML5';
 
 import dateUtils from '../utils/dateUtils';
 import DateStore from '../stores/DateStore';
@@ -24,6 +26,7 @@ import Month from '../month/month.jsx';
 /**
  * App Root
  */
+@DragDropContext(HTML5Backend)
 class App extends React.Component {
 
   constructor(props) {

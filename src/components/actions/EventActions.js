@@ -11,5 +11,5 @@ import alt from '../../libs/alt';
 
 export default alt.generateActions(
   'addEvent', 'editEvent', 'deleteEvent',
-  'reopenEvent', 'finishEvent'
+  'reopenEvent', 'finishEvent', 'changeEventTime'
 );

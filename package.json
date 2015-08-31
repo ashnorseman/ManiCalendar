@@ -43,6 +43,7 @@
     "express": "^4.13.3",
     "normalize.css": "^3.0.3",
     "react": "^0.13.3",
+    "react-dnd": "^1.1.5",
     "react-router": "^0.13.3"
   }
 }

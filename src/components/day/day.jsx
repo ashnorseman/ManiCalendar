@@ -73,6 +73,7 @@ export default class Day extends React.Component {
                   onEditEvent={this.editEvent}
                   onDeleteEvent={this.deleteEvent}
                   onReopenEvent={this.reopenEvent}
+                  onDropEvent={this.dropEvent}
                   onFinishEvent={this.finishEvent} />
       </tr>
     );
@@ -96,5 +97,9 @@ export default class Day extends React.Component {
 
   finishEvent(id) {
     EventActions.finishEvent(id);
+  }
+
+  dropEvent(id, time) {
+    EventActions.changeEventTime({id, time});
   }
 };

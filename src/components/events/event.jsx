@@ -5,15 +5,28 @@
 
 'use strict';
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { DragSource } from 'react-dnd';
 
 
+const eventSource = {
+  beginDrag(props) {
+    return props;
+  }
+};
+
+
+@DragSource('event', eventSource, (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging()
+}))
 export default class Event extends React.Component {
 
   render() {
+    const { isDragging, connectDragSource, id } = this.props;
     const finished = this.props.status === '已完成';
 
-    return (
+    return connectDragSource(
       <div className={`mani-event-clock type-${this.props.eventType}`}>
         <span className='mani-event-clock-status'>{this.props.status}</span>
 

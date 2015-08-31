@@ -105,6 +105,21 @@ class EventStore {
         this.setState(this.events);
       });
   }
+
+  changeEventTime({id, time}) {
+    const event = this.events.filter(function (event) {
+      return event.id === id;
+    })[0];
+
+    event.startTime = time;
+    event.startHalfClock = time;
+    delete event.endTime;
+
+    ajax.put(ROOT + 'events/' + event.id, event)
+      .then((res) => {
+        this.setState(this.events);
+      });
+  }
 }
 
 

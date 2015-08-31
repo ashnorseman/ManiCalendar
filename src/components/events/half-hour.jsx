@@ -6,11 +6,24 @@
 'use strict';
 
 import React from 'react';
+import { DropTarget } from 'react-dnd';
 
 import dateUtils from '../utils/dateUtils';
 import Event from './event.jsx';
 
 
+const periodTarget = {
+  drop(targetProps, monitor) {
+    const sourceProps = monitor.getItem();
+
+    sourceProps.onDrop(targetProps.time);
+  }
+};
+
+
+@DropTarget('event', periodTarget, connect => ({
+  connectDropTarget: connect.dropTarget()
+}))
 export default class HalfHour extends React.Component {
 
   constructor(props) {
@@ -23,6 +36,7 @@ export default class HalfHour extends React.Component {
     this.deleteEvent = this.deleteEvent.bind(this);
     this.reopenEvent = this.reopenEvent.bind(this);
     this.finishEvent = this.finishEvent.bind(this);
+    this.dropEvent = this.dropEvent.bind(this);
 
     this.state = {
       editing: false
@@ -30,9 +44,9 @@ export default class HalfHour extends React.Component {
   }
 
   render() {
-    const events = this.props.events;
+    const { connectDropTarget, events } = this.props;
 
-    return (
+    return connectDropTarget(
       <td data-time={this.props.time} onClick={this.enterAddMode}>
         {
           this.state.editing
@@ -41,6 +55,7 @@ export default class HalfHour extends React.Component {
                 return <Event key={`event-${i}`} {...event}
                               onDelete={this.deleteEvent.bind(null, event.id)}
                               onReopen={this.reopenEvent.bind(null, event.id)}
+                              onDrop={this.dropEvent.bind(null, event.id)}
                               onFinish={this.finishEvent.bind(null, event.id)} />;
               })
         }
@@ -118,5 +133,9 @@ export default class HalfHour extends React.Component {
   finishEvent(id, e) {
     this.props.onFinishEvent(id);
     e.stopPropagation();
+  }
+
+  dropEvent(id, time) {
+    this.props.onDropEvent(id, time);
   }
 }
