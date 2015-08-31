@@ -70,7 +70,7 @@ export default class Month extends React.Component {
               <div className='mani-month-events'>
                 {
                   eventsInRange.map((event) => {
-                    return <Event {...event} />;
+                    return <Event {...event} key={event.id} />;
                   })
                 }
               </div>

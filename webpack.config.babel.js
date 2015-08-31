@@ -92,7 +92,7 @@ if (TARGET === 'build') {
     devtool: 'source-map',
     entry: {
       app: path.resolve(ROOT_PATH, 'src/main.jsx'),
-      libs: Object.keys(pkg.dependencies)
+      libs: ['react', 'react-router', 'alt']
     },
     output: {
       path: path.resolve(ROOT_PATH, 'build'),

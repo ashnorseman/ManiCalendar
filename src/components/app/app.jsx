@@ -8,9 +8,10 @@
 import './app.less';
 
 import React from 'react';
-import Router, { Route, DefaultRoute, NotFoundRoute, RouteHandler } from 'react-router';
+import Router, { Route, Redirect, RouteHandler } from 'react-router';
 import AltContainer from 'alt/AltContainer';
 
+import dateUtils from '../utils/dateUtils';
 import DateStore from '../stores/DateStore';
 import EventStore from '../stores/EventStore';
 
@@ -53,7 +54,7 @@ const routes = (
     <Route name='day' path='day/:date?' handler={Day}></Route>
     <Route name='week' path='week/:date?' handler={Week}></Route>
     <Route name='month' path='month/:date?' handler={Month}></Route>
-    <NotFoundRoute handler={Day} />
+    <Redirect from='/' to='week' params={{date: dateUtils.formatTime(new Date())}} />
   </Route>
 );
 

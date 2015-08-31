@@ -39,6 +39,7 @@
     "alt": "^0.17.1",
     "body-parser": "^1.13.3",
     "bourne": "^0.4.0",
+    "compression": "^1.5.2",
     "express": "^4.13.3",
     "normalize.css": "^3.0.3",
     "react": "^0.13.3",

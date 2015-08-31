@@ -7,6 +7,7 @@
 
 var path = require('path'),
     bodyParser = require('body-parser'),
+    compression = require('compression'),
     express = require('express'),
     app = express(),
     Bourne = require('bourne'),
@@ -20,6 +21,7 @@ var path = require('path'),
 // ---------------------------
 
 app.disable('x-powered-by');
+app.use(compression());
 app.set('port', process.env.PORT || PORT);
 app.use(express.static(__dirname + '/build'));
 
