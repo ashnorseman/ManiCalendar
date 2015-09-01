@@ -44,7 +44,7 @@ export default class HalfHour extends React.Component {
   }
 
   render() {
-    const { connectDropTarget, events } = this.props;
+    const { connectDropTarget, events, eventTypes } = this.props;
 
     return connectDropTarget(
       <td data-time={this.props.time} onClick={this.enterAddMode}>
@@ -65,15 +65,17 @@ export default class HalfHour extends React.Component {
 
   renderEdit() {
     const event = this.props.events && this.props.events[0];
+    const eventTypes = this.props.eventTypes;
 
     return (
       <div className='mani-event-edit'>
         <input className='mani-event-input' autoFocus placeholder='事件名称' defaultValue={event ? event.eventName: null} onChange={this.recordEventName} />
         <select className='mani-event-select' defaultValue={event ? event.eventType : '1'} onChange={this.recordEventType}>
-          <option value='1'>工作</option>
-          <option value='2'>学习</option>
-          <option value='3'>健身</option>
-          <option value='4'>娱乐</option>
+          {
+            eventTypes.map(function (eventType) {
+              return <option value={eventType.type} key={eventType.id}>{eventType.name}</option>
+            })
+          }
         </select>
         <button type='button' className='btn btn-normal' onClick={this.finishEdit}>确定</button>
       </div>

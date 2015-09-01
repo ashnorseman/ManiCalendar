@@ -5,6 +5,8 @@
 
 'use strict';
 
+import './events.less';
+
 import React, { PropTypes } from 'react';
 import { DragSource } from 'react-dnd';
 

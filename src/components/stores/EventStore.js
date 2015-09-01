@@ -12,7 +12,7 @@ import dateUtils from '../utils/dateUtils';
 import ajax from '../utils/ajax';
 import EventActions from '../actions/EventActions';
 
-const ROOT = 'http://localhost:9090/';
+const ROOT = location.toString().indexOf('localhost') > 0 ? 'http://localhost:9090/' : '/';
 
 
 class EventStore {

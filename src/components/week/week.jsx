@@ -9,14 +9,15 @@ import React from 'react';
 
 import dateUtils from '../utils/dateUtils';
 import DateStore from '../stores/DateStore';
-import EventActions from '../actions/EventActions';
 import EventStore from '../stores/EventStore';
-import HalfHour from '../events/half-hour.jsx'
+import EventMixin from '../events/event-mixin';
+import HalfHour from '../events/half-hour.jsx';
+import EventTypes from '../event-type/event-type.jsx';
 
 
 const weekNames = '日一二三四五六';
 
-
+@EventMixin
 export default class Week extends React.Component {
 
   constructor(props) {
@@ -28,6 +29,7 @@ export default class Week extends React.Component {
   render() {
     const rangeStart = this.props.DateStore.rangeStart;
     const events = this.props.EventStore.events;
+    const eventTypes = this.props.EventTypeStore.eventTypes;
     const renderLine = this.renderLine;
 
     return (
@@ -52,6 +54,7 @@ export default class Week extends React.Component {
             </thead>
           </table>
         </div>
+
         <div className='mani-data-content'>
           <table>
             <tbody>
@@ -61,10 +64,10 @@ export default class Week extends React.Component {
                   return [
                     <tr className='mani-clock-first-half' key={`clock-${hour}`}>
                       <td rowSpan='2' className='mani-time-label'>{hour}:00</td>
-                      {renderLine({events, rangeStart, hour})}
+                      {renderLine({events, eventTypes, rangeStart, hour})}
                     </tr>,
                     <tr className='mani-clock-second-half' key={`clock-${hour}-30`}>
-                      {renderLine({events, rangeStart, hour, minutes: 30})}
+                      {renderLine({events, eventTypes, rangeStart, hour, minutes: 30})}
                     </tr>
                   ]
                 })
@@ -72,11 +75,13 @@ export default class Week extends React.Component {
             </tbody>
           </table>
         </div>
+
+        <EventTypes eventTypes={eventTypes} />
       </div>
     );
   }
 
-  renderLine({events, rangeStart, hour, minutes = 0}) {
+  renderLine({events, eventTypes, rangeStart, hour, minutes = 0}) {
 
     return dateUtils.createArray(7).map((day) => {
       const time = new Date(dateUtils.addDate(rangeStart, day)).setHours(hour, minutes);
@@ -85,34 +90,13 @@ export default class Week extends React.Component {
       });
 
       return <HalfHour key={time}
-                       time={time} events={eventsInRange}
+                       time={time} events={eventsInRange} eventTypes={eventTypes}
                        onAddEvent={this.addEvent.bind(null, time)}
                        onEditEvent={this.editEvent}
                        onDeleteEvent={this.deleteEvent}
                        onReopenEvent={this.reopenEvent}
+                       onDropEvent={this.dropEvent}
                        onFinishEvent={this.finishEvent} />;
-
-      //return <td data-time={time} key={`time-${time}`}></td>;
     });
   }
-
-  addEvent(startTime, eventName, eventType) {
-    EventActions.addEvent({startTime, eventName, eventType});
-  }
-
-  editEvent(id, eventName, eventType) {
-    EventActions.editEvent({id, eventName, eventType});
-  }
-
-  deleteEvent(id) {
-    EventActions.deleteEvent(id);
-  }
-
-  reopenEvent(id) {
-    EventActions.reopenEvent(id);
-  }
-
-  finishEvent(id) {
-    EventActions.finishEvent(id);
-  }
-};
+}

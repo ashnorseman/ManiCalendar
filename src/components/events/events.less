@@ -1,0 +1,134 @@
+/**
+ * Created by AshZhang on 15/9/1.
+ */
+
+
+@import "../../styles/_variables";
+@import "../../styles/_mixins";
+@import "../../styles/_typography";
+@import "../../styles/_form";
+
+
+// Events
+// ---------------------------
+
+.mani-event-clock {
+  border: 1px solid;
+  border-radius: @border-radius;
+  font-size: @font-base;
+  height: @gap;
+  line-height: @gap - (1 / 16);
+  padding: 0 0.25em;
+  position: absolute;
+  left: 0.4rem;
+  right: 0.4rem;
+  top: (@font-base * 2 - @gap) / 2;
+  white-space: nowrap;
+
+  &.type-1 {
+    background: @color-event-1-bg;
+    border-color: @color-event-1-border;
+  }
+
+  &.type-2 {
+    background: @color-event-2-bg;
+    border-color: @color-event-2-border;
+  }
+
+  &.type-3 {
+    background: @color-event-3-bg;
+    border-color: @color-event-3-border;
+  }
+
+  &.type-4 {
+    background: @color-event-4-bg;
+    border-color: @color-event-4-border;
+  }
+
+  &.type-5 {
+    background: @color-event-5-bg;
+    border-color: @color-event-5-border;
+  }
+
+  &.type-6 {
+    background: @color-event-6-bg;
+    border-color: @color-event-6-border;
+  }
+
+  &.type-7 {
+    background: @color-event-7-bg;
+    border-color: @color-event-7-border;
+  }
+
+  &.type-8 {
+    background: @color-event-8-bg;
+    border-color: @color-event-8-border;
+  }
+
+  &.type-9 {
+    background: @color-event-9-bg;
+    border-color: @color-event-9-border;
+  }
+
+  &:hover {
+
+    .mani-event-clock-status {
+      display: none;
+    }
+
+    .mani-event-clock-opr {
+      display: block;
+    }
+  }
+}
+
+.mani-event-clock-name {
+  display: block;
+  margin-right: 4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mani-event-clock-status {
+  color: @color-gray;
+  float: right;
+  font-size: @font-sm;
+}
+
+.mani-event-clock-opr {
+  display: none;
+  font-size: @font-sm;
+  float: right;
+
+  > span {
+    cursor: pointer;
+    padding: 0 0.25rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.mani-event-clock-delete {
+  color: @color-gray;
+}
+
+
+// Edit
+// ---------------------------
+
+.mani-event-edit {
+  display: flex;
+  padding: 0.25rem 0;
+}
+
+.mani-event-input {
+  flex: 1;
+  margin-right: @gap;
+}
+
+.mani-event-select {
+  margin-right: @gap;
+  width: 10rem;
+}

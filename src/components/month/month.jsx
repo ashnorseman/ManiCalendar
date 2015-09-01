@@ -9,6 +9,7 @@ import React from 'react';
 
 import dateUtils from '../utils/dateUtils';
 import Event from '../events/event.jsx';
+import EventTypes from '../event-type/event-type.jsx';
 
 
 export default class Month extends React.Component {
@@ -16,6 +17,7 @@ export default class Month extends React.Component {
   render() {
     const {rangeStart, rangeEnd, date} = this.props.DateStore;
     const events = this.props.EventStore.events;
+    const eventTypes = this.props.EventTypeStore.eventTypes;
     const curMonth = date.getMonth();
     const weekCount = dateUtils.createArray(Math.ceil((rangeEnd - rangeStart) / 1000 / 60 / 60 / 24 / 7));
     const renderLine = this.renderLine;
@@ -37,6 +39,7 @@ export default class Month extends React.Component {
             </thead>
           </table>
         </div>
+
         <div className='mani-data-content'>
           <table>
             <tbody>
@@ -48,6 +51,8 @@ export default class Month extends React.Component {
             </tbody>
           </table>
         </div>
+
+        <EventTypes eventTypes={eventTypes} />
       </div>
     );
   }

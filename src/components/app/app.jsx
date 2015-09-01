@@ -16,6 +16,7 @@ import HTML5Backend from 'react-dnd/modules/backends/HTML5';
 import dateUtils from '../utils/dateUtils';
 import DateStore from '../stores/DateStore';
 import EventStore from '../stores/EventStore';
+import EventTypeStore from '../stores/EventTypeStore';
 
 import Header from '../header/header.jsx';
 import Day from '../day/day.jsx';
@@ -39,7 +40,7 @@ class App extends React.Component {
 
     return (
       <div className='mani'>
-        <AltContainer stores={{DateStore, EventStore}}>
+        <AltContainer stores={{DateStore, EventStore, EventTypeStore}}>
           <Header />
           <RouteHandler />
         </AltContainer>

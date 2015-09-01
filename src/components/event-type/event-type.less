@@ -1,0 +1,72 @@
+/**
+ * Created by AshZhang on 15/9/1.
+ */
+
+
+@import "../../styles/_variables";
+@import "../../styles/_mixins";
+@import "../../styles/_typography";
+@import "../../styles/_form";
+
+
+.mani-event-type {
+  display: inline-block;
+  font-size: @font-sm;
+  margin-right: 0.75rem;
+
+  &:before {
+    border: 1px solid;
+    border-radius: @border-radius;
+    content: ' ';
+    display: inline-block;
+    height: @font-sm;
+    margin-right: 0.25rem;
+    vertical-align: -1px;
+    width: 1rem;
+  }
+
+  &.type-1:before {
+    background: @color-event-1-bg;
+    border-color: @color-event-1-border;
+  }
+
+  &.type-2:before {
+    background: @color-event-2-bg;
+    border-color: @color-event-2-border;
+  }
+
+  &.type-3:before {
+    background: @color-event-3-bg;
+    border-color: @color-event-3-border;
+  }
+
+  &.type-4:before {
+    background: @color-event-4-bg;
+    border-color: @color-event-4-border;
+  }
+
+  &.type-5:before {
+    background: @color-event-5-bg;
+    border-color: @color-event-5-border;
+  }
+
+  &.type-6:before {
+    background: @color-event-6-bg;
+    border-color: @color-event-6-border;
+  }
+
+  &.type-7:before {
+    background: @color-event-7-bg;
+    border-color: @color-event-7-border;
+  }
+
+  &.type-8:before {
+    background: @color-event-8-bg;
+    border-color: @color-event-8-border;
+  }
+
+  &.type-9:before {
+    background: @color-event-9-bg;
+    border-color: @color-event-9-border;
+  }
+}
