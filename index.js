@@ -47,10 +47,10 @@ app.use(function (req, res, next) {
 
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, PATCH, POST, DELETE');
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
 
   next();
 });
-
 
 // GET
 app.get('/:a?/:b?/:c?/:d?', function (req, res) {
@@ -76,9 +76,9 @@ app.post('/:a?/:b?/:c?/:d?', function (req, res) {
 
   if (Object.keys(req.body).length) {
 
-    db.insert(req.body, function (err) {
+    db.insert(req.body, function (err, doc) {
       if (err) return res.send(400);
-      res.sendStatus(200);
+      res.json(doc);
     });
   } else {
     res.sendStatus(400);

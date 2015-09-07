@@ -54,9 +54,9 @@ export default class HalfHour extends React.Component {
             : events.map((event, i) => {
                 return <Event key={`event-${i}`} {...event}
                               onDelete={this.deleteEvent.bind(null, event.id)}
-                              onReopen={this.reopenEvent.bind(null, event.id)}
-                              onDrop={this.dropEvent.bind(null, event.id)}
-                              onFinish={this.finishEvent.bind(null, event.id)} />;
+                              onReopen={this.reopenEvent.bind(null, event)}
+                              onDrop={this.dropEvent.bind(null, event)}
+                              onFinish={this.finishEvent.bind(null, event)} />;
               })
         }
       </td>
@@ -127,17 +127,17 @@ export default class HalfHour extends React.Component {
     e.stopPropagation();
   }
 
-  reopenEvent(id, e) {
-    this.props.onReopenEvent(id);
+  reopenEvent(event, e) {
+    this.props.onReopenEvent(event);
     e.stopPropagation();
   }
 
-  finishEvent(id, e) {
-    this.props.onFinishEvent(id);
+  finishEvent(event, e) {
+    this.props.onFinishEvent(event);
     e.stopPropagation();
   }
 
-  dropEvent(id, time) {
-    this.props.onDropEvent(id, time);
+  dropEvent(event, time) {
+    this.props.onDropEvent(event, time);
   }
 }

@@ -9,7 +9,7 @@
 import alt from '../../libs/alt';
 
 import dateUtils from '../utils/dateUtils';
-import ajax from '../utils/ajax';
+import resource from '../utils/react-resource.js';
 import EventActions from '../actions/EventActions';
 
 const ROOT = location.toString().indexOf('localhost') > 0 ? 'http://localhost:9090/' : '/';
@@ -19,16 +19,8 @@ class EventStore {
 
   constructor() {
     this.bindActions(EventActions);
-
-    this.events = [];
-
-    ajax.get(ROOT + 'events')
-      .then((res) => {
-
-        this.setState({
-          events: res
-        });
-      });
+    this.data = [];
+    this.read();
   }
 
   addEvent({startTime, eventName, eventType}) {
@@ -41,86 +33,47 @@ class EventStore {
     event.startHalfClock = startTime - startTime % (1000 * 60 * 30);
     event.startDate = dateUtils.trimHours(startTime);
 
-    ajax.post(ROOT + 'events', event)
-      .then((res) => {
-
-        this.setState({
-          events: this.events.concat(event)
-        });
-      });
+    this.create(event);
   }
 
   editEvent({id, eventName, eventType}) {
-    let event = this.events.filter(function (event) {
+    let event = this.data.filter(function (event) {
       return event.id === id;
     })[0];
 
     eventName && (event.eventName = eventName);
     eventType && (event.eventType = eventType);
 
-    ajax.put(ROOT + 'events/' + event.id, event)
-      .then((res) => {
-        this.setState(this.events);
-      });
+    this.update(event);
   }
 
   deleteEvent(id) {
-    const event = this.events.filter(function (event) {
-      return event.id === id;
-    })[0];
-
-    const index = this.events.indexOf(event);
-
-    ajax.delete(ROOT + 'events/' + event.id, event)
-      .then((res) => {
-
-        this.setState({
-          events: this.events.slice(0, index).concat(this.events.slice(index + 1))
-        });
-      });
+    this.delete(id);
   }
 
-  reopenEvent(id) {
-    const event = this.events.filter(function (event) {
-      return event.id === id;
-    })[0];
-
+  reopenEvent(event) {
     event.status = '进行中';
-
-    ajax.put(ROOT + 'events/' + event.id, event)
-      .then((res) => {
-        this.setState(this.events);
-      });
+    this.update(event);
   }
 
-  finishEvent(id) {
-    const event = this.events.filter(function (event) {
-      return event.id === id;
-    })[0];
-
+  finishEvent(event) {
     event.status = '已完成';
-
-    ajax.put(ROOT + 'events/' + event.id, event)
-      .then((res) => {
-        this.setState(this.events);
-      });
+    this.update(event);
   }
 
-  changeEventTime({id, time}) {
-    const event = this.events.filter(function (event) {
-      return event.id === id;
-    })[0];
-
+  changeEventTime({event, time}) {
     event.startTime = time;
     event.startHalfClock = time;
     delete event.endTime;
 
-    ajax.put(ROOT + 'events/' + event.id, event)
-      .then((res) => {
-        this.setState(this.events);
-      });
+    this.update(event);
   }
 }
+
+
+new resource(EventStore, 'events/', {
+  rootUrl: ROOT
+});
 
 
 export default alt.createStore(EventStore, 'EventStore');

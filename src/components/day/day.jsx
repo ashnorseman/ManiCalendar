@@ -26,8 +26,8 @@ export default class Day extends React.Component {
 
   render() {
     const date = this.props.DateStore.date;
-    const events = this.props.EventStore.events;
-    const eventTypes = this.props.EventTypeStore.eventTypes;
+    const events = this.props.EventStore.data;
+    const eventTypes = this.props.EventTypeStore.data;
     const renderLine = this.renderLine;
 
     return (
@@ -82,4 +82,4 @@ export default class Day extends React.Component {
       </tr>
     );
   }
-};
+}

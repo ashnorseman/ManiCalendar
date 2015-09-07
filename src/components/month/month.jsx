@@ -16,8 +16,8 @@ export default class Month extends React.Component {
 
   render() {
     const {rangeStart, rangeEnd, date} = this.props.DateStore;
-    const events = this.props.EventStore.events;
-    const eventTypes = this.props.EventTypeStore.eventTypes;
+    const events = this.props.EventStore.data;
+    const eventTypes = this.props.EventTypeStore.data;
     const curMonth = date.getMonth();
     const weekCount = dateUtils.createArray(Math.ceil((rangeEnd - rangeStart) / 1000 / 60 / 60 / 24 / 7));
     const renderLine = this.renderLine;

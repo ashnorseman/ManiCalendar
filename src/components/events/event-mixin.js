@@ -19,19 +19,19 @@ export default function (target) {
     EventActions.editEvent({id, eventName, eventType});
   };
 
-  proto.deleteEvent = function (id) {
-    EventActions.deleteEvent(id);
+  proto.deleteEvent = function (event) {
+    EventActions.deleteEvent(event);
   };
 
-  proto.reopenEvent = function (id) {
-    EventActions.reopenEvent(id);
+  proto.reopenEvent = function (event) {
+    EventActions.reopenEvent(event);
   };
 
-  proto.finishEvent = function (id) {
-    EventActions.finishEvent(id);
+  proto.finishEvent = function (event) {
+    EventActions.finishEvent(event);
   };
 
-  proto.dropEvent = function (id, time) {
-    EventActions.changeEventTime({id, time});
+  proto.dropEvent = function (event, time) {
+    EventActions.changeEventTime({event, time});
   };
 }

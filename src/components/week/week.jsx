@@ -28,8 +28,8 @@ export default class Week extends React.Component {
 
   render() {
     const rangeStart = this.props.DateStore.rangeStart;
-    const events = this.props.EventStore.events;
-    const eventTypes = this.props.EventTypeStore.eventTypes;
+    const events = this.props.EventStore.data;
+    const eventTypes = this.props.EventTypeStore.data;
     const renderLine = this.renderLine;
 
     return (
