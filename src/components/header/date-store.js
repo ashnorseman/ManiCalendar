@@ -6,34 +6,16 @@
 'use strict';
 
 
-import alt from '../../libs/alt';
-
-import DateActions from '../actions/DateActions';
+import Store from '../utils/react-store';
 import dateUtils from '../utils/dateUtils';
 
 
-class DateStore {
+class DateStore extends Store {
 
-  constructor() {
-    this.bindActions(DateActions);
-
-    this.date = null;
-    this.range = null;
-
-    this.exportPublicMethods({
-      init: this.init.bind(this)
-    });
-
-    window.addEventListener('hashchange', () => {
-      this.init();
-    }, false);
-  }
-
-  init() {
+  refactor() {
 
     // Check route validity
     let doRelocate = false;
-
     const hash = location.hash.slice(1).split('/').slice(1);
     let range, date;
 
@@ -76,6 +58,8 @@ class DateStore {
     const {rangeStart, rangeEnd} = dateUtils.calRange(this.date, this.range);
 
     this.setState({
+      range: this.range,
+      date: this.date,
       rangeStart,
       rangeEnd,
       dateText: dateUtils.formatTime(this.date),
@@ -86,4 +70,13 @@ class DateStore {
 }
 
 
-export default alt.createStore(DateStore, 'DateStore');
+export default new DateStore({
+
+  init() {
+
+    // Bind events
+    window.addEventListener('hashchange', () => {
+      this.refactor();
+    }, false);
+  }
+});

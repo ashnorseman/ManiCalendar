@@ -5,19 +5,22 @@
 
 'use strict';
 
+
 import React from 'react';
+import Component from '../utils/react-store-component';
 
 import dateUtils from '../utils/dateUtils';
 import Event from '../events/event.jsx';
 import EventTypes from '../event-type/event-type.jsx';
 
 
-export default class Month extends React.Component {
+export default class Month extends Component {
 
   render() {
-    const {rangeStart, rangeEnd, date} = this.props.DateStore;
-    const events = this.props.EventStore.data;
-    const eventTypes = this.props.EventTypeStore.data;
+    const {rangeStart, rangeEnd, date} = this.state.stores.date.data;
+    const events = this.state.stores.events.data;
+    const eventTypes = this.state.stores.eventTypes.data;
+
     const curMonth = date.getMonth();
     const weekCount = dateUtils.createArray(Math.ceil((rangeEnd - rangeStart) / 1000 / 60 / 60 / 24 / 7));
     const renderLine = this.renderLine;

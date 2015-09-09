@@ -44,7 +44,7 @@ export default class HalfHour extends React.Component {
   }
 
   render() {
-    const { connectDropTarget, events, eventTypes } = this.props;
+    const { connectDropTarget, events } = this.props;
 
     return connectDropTarget(
       <td data-time={this.props.time} onClick={this.enterAddMode}>
@@ -104,12 +104,20 @@ export default class HalfHour extends React.Component {
 
       // Add a new event
       if (this._eventName) {
-        this.props.onAddEvent(this._eventName, this._eventType || '1');
+        this.props.eventStore.addEvent({
+          startTime: this.props.time,
+          eventName: this._eventName,
+          eventType: this._eventType || '1'
+        });
       }
     } else {
 
       // Edit the current event
-      this.props.onEditEvent(event.id, this._eventName, this._eventType);
+      this.props.eventStore.editEvent({
+        id: event.id,
+        eventName: this._eventName,
+        eventType: this._eventType
+      });
     }
 
     this.setState({
@@ -121,23 +129,23 @@ export default class HalfHour extends React.Component {
 
   deleteEvent(id, e) {
     if (confirm('真的要删我嘛…')) {
-      this.props.onDeleteEvent(id);
+      this.props.eventStore.deleteEvent(id);
     }
 
     e.stopPropagation();
   }
 
   reopenEvent(event, e) {
-    this.props.onReopenEvent(event);
+    this.props.eventStore.reopenEvent(event);
     e.stopPropagation();
   }
 
   finishEvent(event, e) {
-    this.props.onFinishEvent(event);
+    this.props.eventStore.finishEvent(event);
     e.stopPropagation();
   }
 
   dropEvent(event, time) {
-    this.props.onDropEvent(event, time);
+    this.props.eventStore.changeEventTime({event, time});
   }
 }

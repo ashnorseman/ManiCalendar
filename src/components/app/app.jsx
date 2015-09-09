@@ -9,19 +9,19 @@ import './app.less';
 
 import React from 'react';
 import Router, { Route, Redirect, RouteHandler } from 'react-router';
-import AltContainer from 'alt/AltContainer';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd/modules/backends/HTML5';
 
 import dateUtils from '../utils/dateUtils';
-import DateStore from '../stores/DateStore';
-import EventStore from '../stores/EventStore';
-import EventTypeStore from '../stores/EventTypeStore';
 
 import Header from '../header/header.jsx';
 import Day from '../day/day.jsx';
 import Week from '../week/week.jsx';
 import Month from '../month/month.jsx';
+
+import dateStore from '../header/date-store';
+import eventTypeStore from '../event-type/event-type-store';
+import eventStore from '../events/event-store';
 
 
 /**
@@ -33,17 +33,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    DateStore.init();
+    dateStore.refactor();
   }
 
   render() {
 
     return (
       <div className='mani'>
-        <AltContainer stores={{DateStore, EventStore, EventTypeStore}}>
-          <Header />
-          <RouteHandler />
-        </AltContainer>
+        <Header stores={{date: dateStore}} />
+        <RouteHandler stores={{date: dateStore, events: eventStore, eventTypes: eventTypeStore}} />
       </div>
     );
   }

@@ -8,9 +8,10 @@
 import './event-type.less';
 
 import React from 'react';
+import Component from '../utils/react-store-component';
 
 
-export default class EventTypes extends React.Component {
+export default class EventTypes extends Component {
 
   render() {
     const eventTypes = this.props.eventTypes;

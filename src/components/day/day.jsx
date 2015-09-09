@@ -6,17 +6,15 @@
 'use strict';
 
 import React from 'react';
+import Component from '../utils/react-store-component';
 
 import dateUtils from '../utils/dateUtils';
 
-import DateStore from '../stores/DateStore';
-import EventMixin from '../events/event-mixin';
 import HalfHour from '../events/half-hour.jsx';
 import EventTypes from '../event-type/event-type.jsx';
 
 
-@EventMixin
-export default class Day extends React.Component {
+export default class Day extends Component {
 
   constructor(props) {
     super(props);
@@ -25,9 +23,9 @@ export default class Day extends React.Component {
   }
 
   render() {
-    const date = this.props.DateStore.date;
-    const events = this.props.EventStore.data;
-    const eventTypes = this.props.EventTypeStore.data;
+    const date = this.state.stores.date.data.date;
+    const eventTypes = this.state.stores.eventTypes.data;
+    const events = this.state.stores.events.data;
     const renderLine = this.renderLine;
 
     return (
@@ -69,17 +67,10 @@ export default class Day extends React.Component {
     });
 
     return (
-
       <tr className={minutes ? 'mani-clock-second-half' : 'mani-clock-first-half'}>
         {minutes ? null : <td rowSpan='2' className='mani-time-label'>{hour}:00</td>}
-        <HalfHour time={time} events={eventsInRange} eventTypes={eventTypes}
-                  onAddEvent={this.addEvent.bind(null, time)}
-                  onEditEvent={this.editEvent}
-                  onDeleteEvent={this.deleteEvent}
-                  onReopenEvent={this.reopenEvent}
-                  onDropEvent={this.dropEvent}
-                  onFinishEvent={this.finishEvent} />
+        <HalfHour key={time} time={time} eventStore={this.state.stores.events} events={eventsInRange} eventTypes={eventTypes} />
       </tr>
     );
   }
-}
+};

@@ -6,22 +6,11 @@
 'use strict';
 
 
-import alt from '../../libs/alt';
-
+import Store from '../utils/react-store';
 import dateUtils from '../utils/dateUtils';
-import resource from '../utils/react-resource.js';
-import EventActions from '../actions/EventActions';
-
-const ROOT = location.toString().indexOf('localhost') > 0 ? 'http://localhost:9090/' : '/';
 
 
-class EventStore {
-
-  constructor() {
-    this.bindActions(EventActions);
-    this.data = [];
-    this.read();
-  }
+class EventStore extends Store {
 
   addEvent({startTime, eventName, eventType}) {
     let event = {startTime, eventName, eventType};
@@ -71,9 +60,10 @@ class EventStore {
 }
 
 
-new resource(EventStore, 'events/', {
-  rootUrl: ROOT
+export default new EventStore({
+  data: [],
+  rootUrl: (location.toString().indexOf('localhost') > 0 ? 'http://localhost:9090/' : '/') + 'events',
+  init: function () {
+    this.read();
+  }
 });
-
-
-export default alt.createStore(EventStore, 'EventStore');

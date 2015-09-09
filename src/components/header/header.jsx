@@ -5,18 +5,17 @@
 
 'use strict';
 
+
 import './header.less';
 
 import React from 'react';
 import { Link } from 'react-router';
+import Component from '../utils/react-store-component';
 
 import dateUtils from '../utils/dateUtils';
 
-import DateActions from '../actions/DateActions';
-import DateStore from '../stores/DateStore';
 
-
-export default class Header extends React.Component {
+export default class Header extends Component {
 
   constructor(prop) {
     super(prop);
@@ -26,29 +25,29 @@ export default class Header extends React.Component {
   }
 
   render() {
-    const DateStore = this.props.DateStore;
-    const prevTarget = this.prev(DateStore);
-    const nextTarget = this.next(DateStore);
+    const dateStore = this.state.stores.date;
+    const prevTarget = this.prev(dateStore.data);
+    const nextTarget = this.next(dateStore.data);
     const todayText = dateUtils.formatTime(Date.now());
 
     return (
       <header className='mani-header'>
         <div className='mani-header-date-switch'>
-          <Link to={DateStore.range} params={{date: prevTarget}} className='mani-header-date-btn mani-header-date-prev'>向前 <span className='arrow'></span></Link>
+          <Link to={dateStore.data.range} params={{date: prevTarget}} className='mani-header-date-btn mani-header-date-prev'>向前 <span className='arrow'></span></Link>
           <span className='mani-header-date-range'>{
-            DateStore.range === 'day'
-              ? DateStore.rangeStartText
-              : `${DateStore.rangeStartText} – ${DateStore.rangeEndText}`
+            dateStore.data.range === 'day'
+              ? dateStore.data.rangeStartText
+              : `${dateStore.data.rangeStartText} – ${dateStore.data.rangeEndText}`
           }</span>
-          <Link to={DateStore.range} params={{date: nextTarget}} className='mani-header-date-btn mani-header-date-next'>向后 <span className='arrow'></span></Link>
+          <Link to={dateStore.data.range} params={{date: nextTarget}} className='mani-header-date-btn mani-header-date-next'>向后 <span className='arrow'></span></Link>
         </div>
 
-        <Link to={DateStore.range} params={{date: todayText}} className='btn btn-normal'>今天</Link>
+        <Link to={dateStore.data.range} params={{date: todayText}} className='btn btn-normal'>今天</Link>
 
         <ul className='mani-header-view-switch'>
-          <li><Link to='day' params={{date: DateStore.dateText}}>日</Link></li>
-          <li><Link to='week' params={{date: DateStore.dateText}}>周</Link></li>
-          <li><Link to='month' params={{date: DateStore.dateText}}>月</Link></li>
+          <li><Link to='day' params={{date: dateStore.data.dateText}}>日</Link></li>
+          <li><Link to='week' params={{date: dateStore.data.dateText}}>周</Link></li>
+          <li><Link to='month' params={{date: dateStore.data.dateText}}>月</Link></li>
         </ul>
       </header>
     );
