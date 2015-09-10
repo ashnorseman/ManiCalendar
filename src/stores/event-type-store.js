@@ -6,11 +6,11 @@
 'use strict';
 
 import Store from '../utils/react-store';
+import CONF from '../config';
 
 
 export default new Store({
-  data: [],
-  rootUrl: (location.toString().indexOf('localhost') > 0 ? 'http://localhost:9090/' : '/') + 'eventTypes',
+  rootUrl: CONF.API_ROOT + 'eventTypes',
   init: function () {
     this.read();
   }

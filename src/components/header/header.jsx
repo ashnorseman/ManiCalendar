@@ -10,9 +10,9 @@ import './header.less';
 
 import React from 'react';
 import { Link } from 'react-router';
-import Component from '../utils/react-store-component';
+import Component from '../../utils/react-store-component';
 
-import dateUtils from '../utils/dateUtils';
+import dateUtils from '../../utils/dateUtils';
 
 
 export default class Header extends Component {
@@ -25,7 +25,7 @@ export default class Header extends Component {
   }
 
   render() {
-    const dateStore = this.state.stores.date;
+    const dateStore = this.props.stores.date;
     const prevTarget = this.prev(dateStore.data);
     const nextTarget = this.next(dateStore.data);
     const todayText = dateUtils.formatTime(Date.now());

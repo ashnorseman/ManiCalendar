@@ -5,6 +5,7 @@
 
 'use strict';
 
+import '../node_modules/normalize.css/normalize.css';
 import './app.less';
 
 import React from 'react';
@@ -12,16 +13,17 @@ import Router, { Route, Redirect, RouteHandler } from 'react-router';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd/modules/backends/HTML5';
 
-import dateUtils from '../utils/dateUtils';
+import dateUtils from './utils/dateUtils';
 
-import Header from '../header/header.jsx';
-import Day from '../day/day.jsx';
-import Week from '../week/week.jsx';
-import Month from '../month/month.jsx';
+import Header from './components/header/header.jsx';
+import Day from './components/day/day.jsx';
+import Week from './components/week/week.jsx';
+import Month from './components/month/month.jsx';
+import EventType from './components/event-type/event-type.jsx';
 
-import dateStore from '../header/date-store';
-import eventTypeStore from '../event-type/event-type-store';
-import eventStore from '../events/event-store';
+import dateStore from './stores/date-store';
+import eventTypeStore from './stores/event-type-store';
+import eventStore from './stores/event-store';
 
 
 /**
@@ -30,18 +32,13 @@ import eventStore from '../events/event-store';
 @DragDropContext(HTML5Backend)
 class App extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    dateStore.refactor();
-  }
-
   render() {
 
     return (
       <div className='mani'>
         <Header stores={{date: dateStore}} />
         <RouteHandler stores={{date: dateStore, events: eventStore, eventTypes: eventTypeStore}} />
+        <EventType stores={{eventTypes: eventTypeStore}} />
       </div>
     );
   }

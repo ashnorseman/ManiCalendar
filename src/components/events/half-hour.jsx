@@ -8,7 +8,7 @@
 import React from 'react';
 import { DropTarget } from 'react-dnd';
 
-import dateUtils from '../utils/dateUtils';
+import dateUtils from '../../utils/dateUtils';
 import Event from './event.jsx';
 
 

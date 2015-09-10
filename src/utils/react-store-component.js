@@ -21,10 +21,8 @@ class StoreComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state || (this.state = {});
-    this.state.stores || (this.state.stores = {});
+    this.state = {};
     this._storeListener = listenToStore.bind(this);
-    this.bindStores(this.props.stores);
   }
 
 
@@ -41,7 +39,7 @@ class StoreComponent extends Component {
   }
 
   componentWillUnmount() {
-    const stores = this.state.stores;
+    const stores = this.props.stores;
 
     if (!stores) return;
 
@@ -59,7 +57,7 @@ class StoreComponent extends Component {
 
     Object.getOwnPropertyNames(stores).forEach((storeName) => {
       const store = stores[storeName];
-      this.state.stores[storeName] = store;
+      this.props.stores[storeName] = store;
 
       if (store.listeners('change').indexOf(this._storeListener) === -1) {
         store.on('change', this._storeListener);

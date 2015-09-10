@@ -73,6 +73,7 @@ class DateStore extends Store {
 export default new DateStore({
 
   init() {
+    this.refactor();
 
     // Bind events
     window.addEventListener('hashchange', () => {

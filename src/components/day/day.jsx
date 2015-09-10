@@ -6,12 +6,11 @@
 'use strict';
 
 import React from 'react';
-import Component from '../utils/react-store-component';
+import Component from '../../utils/react-store-component';
 
-import dateUtils from '../utils/dateUtils';
+import dateUtils from '../../utils/dateUtils';
 
 import HalfHour from '../events/half-hour.jsx';
-import EventTypes from '../event-type/event-type.jsx';
 
 
 export default class Day extends Component {
@@ -23,9 +22,10 @@ export default class Day extends Component {
   }
 
   render() {
-    const date = this.state.stores.date.data.date;
-    const eventTypes = this.state.stores.eventTypes.data;
-    const events = this.state.stores.events.data;
+    const stores = this.props.stores;
+    const date = stores.date.data.date;
+    const eventTypes = stores.eventTypes.data;
+    const events = stores.events.data;
     const renderLine = this.renderLine;
 
     return (
@@ -54,13 +54,12 @@ export default class Day extends Component {
             </tbody>
           </table>
         </div>
-
-        <EventTypes eventTypes={eventTypes} />
       </div>
     );
   }
 
   renderLine({events, eventTypes, date, hour, minutes = 0}) {
+    const eventStore = this.props.stores.events;
     const time = date.setHours(hour, minutes);
     const eventsInRange = events.filter((event) => {
       return event.startHalfClock == time;
@@ -69,7 +68,7 @@ export default class Day extends Component {
     return (
       <tr className={minutes ? 'mani-clock-second-half' : 'mani-clock-first-half'}>
         {minutes ? null : <td rowSpan='2' className='mani-time-label'>{hour}:00</td>}
-        <HalfHour key={time} time={time} eventStore={this.state.stores.events} events={eventsInRange} eventTypes={eventTypes} />
+        <HalfHour key={time} time={time} eventStore={eventStore} events={eventsInRange} eventTypes={eventTypes} />
       </tr>
     );
   }

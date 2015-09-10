@@ -8,6 +8,7 @@
 
 import Store from '../utils/react-store';
 import dateUtils from '../utils/dateUtils';
+import CONF from '../config';
 
 
 class EventStore extends Store {
@@ -61,8 +62,7 @@ class EventStore extends Store {
 
 
 export default new EventStore({
-  data: [],
-  rootUrl: (location.toString().indexOf('localhost') > 0 ? 'http://localhost:9090/' : '/') + 'events',
+  rootUrl: CONF.API_ROOT + 'events',
   init: function () {
     this.read();
   }

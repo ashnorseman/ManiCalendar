@@ -20,7 +20,7 @@ var path = require('path'),
  * Common settings
  */
 var common = {
-  entry: path.resolve(ROOT_PATH, 'src/main.jsx'),
+  entry: path.resolve(ROOT_PATH, 'src/app.jsx'),
   output: {
     path: path.resolve(ROOT_PATH, 'build'),
     filename: 'bundle.js'
@@ -91,7 +91,7 @@ if (TARGET === 'build') {
   module.exports = merge(common, {
     devtool: 'source-map',
     entry: {
-      app: path.resolve(ROOT_PATH, 'src/main.jsx'),
+      app: path.resolve(ROOT_PATH, 'src/app.jsx'),
       libs: ['react', 'react-router', 'react-dnd', 'whatwg-fetch']
     },
     output: {

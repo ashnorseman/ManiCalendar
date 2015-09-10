@@ -8,16 +8,16 @@
 import './event-type.less';
 
 import React from 'react';
-import Component from '../utils/react-store-component';
+import Component from '../../utils/react-store-component';
 
 
-export default class EventTypes extends Component {
+export default class EventType extends Component {
 
   render() {
-    const eventTypes = this.props.eventTypes;
+    const eventTypes = this.props.stores.eventTypes.data;
 
     return (
-      <div className='mani-data-footer'>
+      <footer className='mani-footer'>
         <ul className='mani-event-types'>
           {
             eventTypes.map(function (eventType) {
@@ -25,7 +25,7 @@ export default class EventTypes extends Component {
             })
           }
         </ul>
-      </div>
+      </footer>
     );
   }
 };

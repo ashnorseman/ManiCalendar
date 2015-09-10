@@ -6,12 +6,11 @@
 'use strict';
 
 import React from 'react';
-import Component from '../utils/react-store-component';
+import Component from '../../utils/react-store-component';
 
-import dateUtils from '../utils/dateUtils';
+import dateUtils from '../../utils/dateUtils';
 
 import HalfHour from '../events/half-hour.jsx';
-import EventTypes from '../event-type/event-type.jsx';
 
 
 const weekNames = '日一二三四五六';
@@ -25,9 +24,10 @@ export default class Week extends Component {
   }
 
   render() {
-    const rangeStart = this.state.stores.date.data.rangeStart;
-    const eventTypes = this.state.stores.eventTypes.data;
-    const events = this.state.stores.events.data;
+    const stores = this.props.stores;
+    const rangeStart = stores.date.data.rangeStart;
+    const eventTypes = stores.eventTypes.data;
+    const events = stores.events.data;
     const renderLine = this.renderLine;
 
     return (
@@ -73,13 +73,12 @@ export default class Week extends Component {
             </tbody>
           </table>
         </div>
-
-        <EventTypes eventTypes={eventTypes} />
       </div>
     );
   }
 
   renderLine({events, eventTypes, rangeStart, hour, minutes = 0}) {
+    const eventStore = this.props.stores.events;
 
     return dateUtils.createArray(7).map((day) => {
       const time = new Date(dateUtils.addDate(rangeStart, day)).setHours(hour, minutes);
@@ -87,7 +86,7 @@ export default class Week extends Component {
         return event.startHalfClock == time;
       });
 
-      return <HalfHour key={time} time={time} eventStore={this.state.stores.events} events={eventsInRange} eventTypes={eventTypes} />;
+      return <HalfHour key={time} time={time} eventStore={eventStore} events={eventsInRange} eventTypes={eventTypes} />;
     });
   }
 };

@@ -7,19 +7,18 @@
 
 
 import React from 'react';
-import Component from '../utils/react-store-component';
+import Component from '../../utils/react-store-component';
 
-import dateUtils from '../utils/dateUtils';
+import dateUtils from '../../utils/dateUtils';
 import Event from '../events/event.jsx';
-import EventTypes from '../event-type/event-type.jsx';
 
 
 export default class Month extends Component {
 
   render() {
-    const {rangeStart, rangeEnd, date} = this.state.stores.date.data;
-    const events = this.state.stores.events.data;
-    const eventTypes = this.state.stores.eventTypes.data;
+    const stores = this.props.stores;
+    const {rangeStart, rangeEnd, date} = stores.date.data;
+    const events = stores.events.data;
 
     const curMonth = date.getMonth();
     const weekCount = dateUtils.createArray(Math.ceil((rangeEnd - rangeStart) / 1000 / 60 / 60 / 24 / 7));
@@ -54,8 +53,6 @@ export default class Month extends Component {
             </tbody>
           </table>
         </div>
-
-        <EventTypes eventTypes={eventTypes} />
       </div>
     );
   }

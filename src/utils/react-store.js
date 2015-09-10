@@ -24,7 +24,7 @@ class ReactStore extends Events {
     super();
 
     // All data are stored at `data` property
-    this.data = (!options || options.data === undefined)
+    this.data = (options.data === undefined)
                   ? []
                   : options.data;
 
