@@ -102,8 +102,9 @@ if (TARGET === 'build') {
       loaders: [
         {
           test: /\.(le|c)ss$/,
-          loaders: ['style', 'css', 'less'],
+          loader: ExtractTextPlugin.extract('style', 'css!less'),
           includes: [
+            path.resolve(ROOT_PATH, 'node_modules/normalize.css'),
             path.resolve(ROOT_PATH, 'src')
           ]
         },

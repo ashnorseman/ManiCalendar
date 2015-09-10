@@ -5,12 +5,13 @@
 
 'use strict';
 
-import React from 'react';
+import React from 'react/addons';
 import { DropTarget } from 'react-dnd';
 
 import dateUtils from '../../utils/dateUtils';
 import Event from './event.jsx';
 
+const CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 const periodTarget = {
   drop(targetProps, monitor) {
@@ -47,19 +48,22 @@ export default class HalfHour extends React.Component {
     const { connectDropTarget, events } = this.props;
 
     return connectDropTarget(
-      <td data-time={this.props.time} onClick={this.enterAddMode}>
+      <CSSTransitionGroup component='td' data-time={this.props.time} onClick={this.enterAddMode}
+                          transitionName='event' transitionAppear={true} transitionLeave={false}>
         {
           this.state.editing
             ? this.renderEdit()
             : events.map((event, i) => {
-                return <Event key={`event-${i}`} {...event}
-                              onDelete={this.deleteEvent.bind(null, event.id)}
-                              onReopen={this.reopenEvent.bind(null, event)}
-                              onDrop={this.dropEvent.bind(null, event)}
-                              onFinish={this.finishEvent.bind(null, event)} />;
+                return (
+                  <Event key={`event-${i}`} {...event}
+                         onDelete={this.deleteEvent.bind(null, event.id)}
+                         onReopen={this.reopenEvent.bind(null, event)}
+                         onDrop={this.dropEvent.bind(null, event)}
+                         onFinish={this.finishEvent.bind(null, event)} />
+                );
               })
         }
-      </td>
+      </CSSTransitionGroup>
     );
   }
 

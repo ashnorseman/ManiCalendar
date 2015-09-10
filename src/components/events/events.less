@@ -20,9 +20,9 @@
   line-height: @gap - (1 / 16);
   padding: 0 0.25em;
   position: absolute;
-  left: 0.4rem;
-  right: 0.4rem;
-  top: (@font-base * 2 - @gap) / 2;
+    left: 0.4rem;
+    right: 0.4rem;
+    top: (@font-base * 2 - @gap) / 2;
   white-space: nowrap;
 
   &.type-1 {
@@ -112,6 +112,32 @@
 
 .mani-event-clock-delete {
   color: @color-gray;
+}
+
+
+// Transitions
+// ---------------------------
+
+.event-appear,
+.event-enter {
+  opacity: 0.01;
+}
+
+.event-appear-active,
+.event-enter-active {
+  opacity: 1;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.event-leave {
+  opacity: 1;
+
+  &.event-leave-active {
+    opacity: 0.01;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+  }
 }
 
 

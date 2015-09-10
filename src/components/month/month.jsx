@@ -6,11 +6,13 @@
 'use strict';
 
 
-import React from 'react';
+import React from 'react/addons';
 import Component from '../../utils/react-store-component';
 
 import dateUtils from '../../utils/dateUtils';
 import Event from '../events/event.jsx';
+
+const CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 
 export default class Month extends Component {
@@ -72,13 +74,13 @@ export default class Month extends Component {
                 className={(time.getMonth() !== curMonth) ? 'mani-td-mute' : ''}>
               <div className='mani-date-label'>{dateUtils.formatTime(time, 'M/dd')}</div>
 
-              <div className='mani-month-events'>
+              <CSSTransitionGroup component='div' className='mani-month-events' transitionName='event' transitionAppear={true} transitionLeave={false}>
                 {
                   eventsInRange.map((event) => {
                     return <Event {...event} key={event.id} />;
                   })
                 }
-              </div>
+              </CSSTransitionGroup>
             </td>
           );
         })

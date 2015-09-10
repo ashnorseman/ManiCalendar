@@ -25,7 +25,7 @@ const eventSource = {
 export default class Event extends React.Component {
 
   render() {
-    const { isDragging, connectDragSource, id } = this.props;
+    const {connectDragSource} = this.props;
     const finished = this.props.status === '已完成';
 
     return connectDragSource(
